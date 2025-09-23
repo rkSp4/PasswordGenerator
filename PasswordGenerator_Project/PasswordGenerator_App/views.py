@@ -78,4 +78,4 @@ def home(request):
         except ValueError as e:
             error = str(e)
 
-    return render(request, 'passwords/home.html', {'password': password, 'error': error, 'form': form})
+    return render(request, 'home.html', {'password': password, 'error': error, 'form': form})
