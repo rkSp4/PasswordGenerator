@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="{% static 'passwords/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+
+    <form method="post" class="controls">
+      {% csrf_token %}
+      <label>Length:
+        <input type="number" name="length" min="4" max="128" value="{{ form.length }}">
+      </label>
+
+      <label><input type="checkbox" name="use_upper" {% if form.use_upper %}checked{% endif %}> Include UPPERCASE</label>
+      <label><input type="checkbox" name="use_digits" {% if form.use_digits %}checked{% endif %}> Include digits</label>
+      <label><input type="checkbox" name="use_symbols" {% if form.use_symbols %}checked{% endif %}> Include symbols</label>
+
+      <div class="actions">
+        <button type="submit">Generate</button>
+        <button type="button" id="copy-btn" onclick="copyPassword()">Copy</button>
+      </div>
+    </form>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if password %}
+      <div class="result">
+        <h2>Your password</h2>
+        <pre id="generated">{{ password }}</pre>
+      </div>
+    {% endif %}
+  </div>
+
+  <script src="{% static 'passwords/app.js' %}"></script>
+</body>
+</html>
